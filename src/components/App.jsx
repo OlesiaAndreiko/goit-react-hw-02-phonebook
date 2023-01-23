@@ -53,11 +53,19 @@ export class App extends Component {
           <button type="Submit">Add Contact</button>
         </form>
         <h2>Contacts</h2>
+        <label htmlFor="number">
+            Find contact by name
+            <input
+              type="tel"
+              name="number"
+            />
+          </label>
         <ul>
           {this.state.contacts.map(({ id, name, number }) => (
             <li key={id}>
               <span>{name}</span>
               <span>{number}</span>
+              <button type="button" name={name} onDelete={this.handleDelete}>Delete</button>
             </li>
           ))}
         </ul>
