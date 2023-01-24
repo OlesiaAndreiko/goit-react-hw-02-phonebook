@@ -1,26 +1,56 @@
+import { nanoid } from 'nanoid';
 import { Component } from 'react';
+
 
 export class App extends Component {
   state = {
     contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+        { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+        { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+        { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+        { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    filter: '',
+    // filter: '',
     name: '',
     number: '',
   };
 
+  handleChange = evt => {
+    const { name, value } = evt.target;
+    this.setState({ [name]: value });
+  };
+
   handleSubmit = e => {
     e.preventDefault();
-    console.log(e.target.elements);
-    const {name, number} = e.target.elements;
-    console.log(name.value, number.value);
-  }
+    // console.log(e.target.elements);
+    // const {name, number} = e.target.elements;
+    const { name, number } = this.state;
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, { id: nanoid(), name, number }],
+    }));
+    this.reset();
+  };
+
+  reset = () => {
+    this.setState({
+      name: '',
+      number: '',
+    });
+  };
+
+  handleDelete = (e) => {         
+    const { name } = e.target;
+    console.log(name)   
+    };
+   
+  deleteContact = contactId => {   
+      // console.log(contactId)    
+      this.setState(prevState => 
+        prevState.contacts.filter(contact => contact.id !== contactId))      
+      };
 
   render() {
+    const { name, number } = this.state;
     return (
       <div
         style={{
@@ -35,6 +65,8 @@ export class App extends Component {
             <input
               type="text"
               name="name"
+              value={name}
+              onChange={this.handleChange}
               // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               // required
@@ -45,6 +77,8 @@ export class App extends Component {
             <input
               type="tel"
               name="number"
+              value={number}
+              onChange={this.handleChange}
               // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               // required
@@ -54,18 +88,17 @@ export class App extends Component {
         </form>
         <h2>Contacts</h2>
         <label htmlFor="number">
-            Find contact by name
-            <input
-              type="tel"
-              name="number"
-            />
-          </label>
+          Find contact by name
+          <input type="tel" name="number" />
+        </label>
         <ul>
           {this.state.contacts.map(({ id, name, number }) => (
             <li key={id}>
               <span>{name}</span>
               <span>{number}</span>
-              <button type="button" name={name} onDelete={this.handleDelete}>Delete</button>
+              <button type="button" name={id} onClick={this.handleDelete}>
+                Delete
+              </button>
             </li>
           ))}
         </ul>
