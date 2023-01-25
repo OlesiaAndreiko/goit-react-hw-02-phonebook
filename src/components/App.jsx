@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import { Component } from 'react';
 import { ContactList } from '../components/ContactList/ContactList';
+import { Filter } from './Filter/Filter';
 
 export class App extends Component {
   state = {
@@ -10,7 +11,7 @@ export class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    // filter: '',
+    filter: '',
     name: '',
     number: '',
   };
@@ -22,7 +23,7 @@ export class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state)
+    console.log(this.state);
     const { name, number } = this.state;
     this.setState(prevState => ({
       contacts: [...prevState.contacts, { id: nanoid(), name, number }],
@@ -39,12 +40,15 @@ export class App extends Component {
 
   deleteContact = contactId => {
     this.setState(prevState => ({
-      contacts : prevState.contacts.filter(contact => contact.id !== contactId),
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
 
   render() {
-    const { name, number } = this.state;
+    const { contacts, name, number, filter } = this.state;
+    const newContacts = contacts.filter(contact =>
+      contact.name.includes(filter)
+    );
     return (
       <div
         style={{
@@ -81,14 +85,8 @@ export class App extends Component {
           <button type="Submit">Add Contact</button>
         </form>
         <h2>Contacts</h2>
-        <label htmlFor="number">
-          Find contact by name
-          <input type="tel" name="number" />
-        </label>
-        <ContactList
-          contacts={this.state.contacts}
-          onDelete={this.deleteContact}
-        />
+        <Filter filter={filter} onChange={this.handleChange} />        
+        <ContactList contacts={newContacts} onDelete={this.deleteContact} />
       </div>
     );
   }

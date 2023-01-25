@@ -83,9 +83,9 @@ export class App extends Component {
           <button type="Submit">Add Contact</button>
         </form>
         <h2>Contacts</h2>
-        <label htmlFor="number">
+        <label htmlFor="filetr">
           Find contact by name
-          <input type="tel" name="number" />
+          <input type="text" name="filter" />
         </label>        
         <ul>
           {this.state.contacts.map(({ id, name, number }) => (
