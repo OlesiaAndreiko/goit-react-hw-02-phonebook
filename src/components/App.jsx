@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import initalContacts from '../components/contacts.json';
 import { Component } from 'react';
 import { ContactList } from '../components/ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { FormContact } from './FormContact/FormContact';
+import { Container } from './Container/Container.styled';
+import { Heading } from './Heading/Hading';
 
 export class App extends Component {
   static propTypes = {
@@ -18,12 +21,7 @@ export class App extends Component {
   };
 
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: initalContacts,
     filter: '',
   };
 
@@ -50,18 +48,13 @@ export class App extends Component {
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
     return (
-      <div
-        style={{
-          padding: '20px',
-          fontSize: 20,
-        }}
-      >
-        <h1>Phonebook</h1>
+      <Container>
+        <Heading title={'phonebook'}></Heading>
         <FormContact onSubmit={this.addContact} contacts={contacts} />
-        <h2>Contacts</h2>
+        <Heading title={'contacts'}></Heading>
         <Filter filter={filter} onChange={this.handleChange} />
         <ContactList contacts={newContacts} onDelete={this.deleteContact} />
-      </div>
+      </Container>
     );
   }
 }

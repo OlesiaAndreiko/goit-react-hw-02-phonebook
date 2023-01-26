@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types';
+import {FilerWrap, FieldCaption, ContactInput} from "./Filter.styled"
 
-export const Filter = ({filter, onChange}) => {
+export const Filter = ({ filter, onChange }) => {
   return (
-    <>
-    <label htmlFor="filter">
-      Find contact by name
-      <input
-        type="text"
-        name="filter"
-        value={filter}
-        onChange={onChange}
-      />
-    </label></>
+    <FilerWrap>
+      <FieldCaption htmlFor="filter">
+        Find contact by name
+        <ContactInput 
+        type="text" 
+        name="filter" 
+        value={filter} 
+        onChange={onChange} />
+      </FieldCaption>
+    </FilerWrap>
   );
 };
 
