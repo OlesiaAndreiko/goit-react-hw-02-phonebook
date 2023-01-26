@@ -8,27 +8,25 @@ export class FormContact extends Component {
   };
   
   handleChange = evt => {
-    console.log(evt.target.value)
+    // console.log(evt.target.value)
     const { name, value } = evt.target;
     this.setState({ [name]: value });
   };
 
   handleSubmit = e => {
-    const { onSubmit} = this.props
     e.preventDefault();
-    const { name, number } = e.target.elements;
-    onSubmit( name.value, number.value );
-
-    this.reset();
+    
+    const { name, number } = this.state;
+    this.props.addContact(name, number)
   };
 
 //   handleSubmit = e => {
+//     const { onSubmit} = this.props
 //     e.preventDefault();
-//     console.log(this.state);
-//     const { name, number } = this.state;
-//     this.setState(prevState => ({
-//       contacts: [...prevState.contacts, { id: nanoid(), name, number }],
-//     }));
+//     const { name, number } = e.target.elements;
+//     console.log(name.value, number.value)
+//     onSubmit( name.value, number.value );
+
 //     this.reset();
 //   };
 
@@ -38,8 +36,6 @@ export class FormContact extends Component {
       number: '',
     });
   };
-
-
 
   render() {
     const {onSubmit} = this.props
@@ -55,7 +51,7 @@ export class FormContact extends Component {
             onChange={this.handleChange}
             // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
+            // required
           />
         </label>
         <label htmlFor="number">
@@ -67,7 +63,7 @@ export class FormContact extends Component {
             onChange={this.handleChange}
             // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
+            // required
           />
         </label>
         <button type="Submit">Add Contact</button>
