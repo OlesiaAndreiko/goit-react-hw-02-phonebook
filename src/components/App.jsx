@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid';
 import { Component } from 'react';
 import { ContactList } from '../components/ContactList/ContactList';
 import { Filter } from './Filter/Filter';
+// import { FormContact } from './FormContact/FormContact';
 
 export class App extends Component {
   state = {
@@ -19,6 +20,13 @@ export class App extends Component {
   handleChange = evt => {
     const { name, value } = evt.target;
     this.setState({ [name]: value });
+  };
+
+  addContact = (name, number) => {
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, { id: nanoid(), name, number }],
+    }));
+    this.reset();
   };
 
   handleSubmit = e => {
@@ -47,7 +55,7 @@ export class App extends Component {
   render() {
     const { contacts, name, number, filter } = this.state;
     const newContacts = contacts.filter(contact =>
-      contact.name.includes(filter)
+      contact.name.toLowerCase().includes(filter.toLowerCase())
     );
     return (
       <div
@@ -57,6 +65,9 @@ export class App extends Component {
         }}
       >
         <h1>Phonebook</h1>
+        {/* <FormContact
+          onSubmit={this.addContact}
+        ></FormContact> */}
         <form autoComplete="off" onSubmit={this.handleSubmit}>
           <label htmlFor="name">
             Name
@@ -67,7 +78,7 @@ export class App extends Component {
               onChange={this.handleChange}
               // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
+              // required
             />
           </label>
           <label htmlFor="number">
@@ -79,13 +90,13 @@ export class App extends Component {
               onChange={this.handleChange}
               // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              required
+              // required
             />
           </label>
           <button type="Submit">Add Contact</button>
         </form>
         <h2>Contacts</h2>
-        <Filter filter={filter} onChange={this.handleChange} />        
+        <Filter filter={filter} onChange={this.handleChange} />
         <ContactList contacts={newContacts} onDelete={this.deleteContact} />
       </div>
     );
