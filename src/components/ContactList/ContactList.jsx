@@ -1,12 +1,11 @@
-import {Contact} from '../Contact/Contact'
+import { Contact } from '../Contact/Contact';
 
-export const ContactList = ({contacts, onDelete}) => {
-    return (
-        <ul>
-          {contacts.map(contact => (
-            <Contact key={contact.id} contact={contact} onDelete={onDelete}/>
-          ))}
-        </ul>
-    )
-}
-
+export const ContactList = ({ contacts, onDelete }) => {
+  return (
+    <ul>
+      {contacts.map(contact => (
+        <Contact key={contact.id} contact={contact} onDelete={onDelete} />
+      ))}
+    </ul>
+  );
+};
