@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { Component } from 'react';
 import { ContactList } from '../components/ContactList/ContactList';
@@ -5,6 +6,17 @@ import { Filter } from './Filter/Filter';
 import { FormContact } from './FormContact/FormContact';
 
 export class App extends Component {
+  static propTypes = {
+    contacts: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        number: PropTypes.number.isRequired,
+      })
+    ),
+    filter: PropTypes.string,
+  };
+
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -16,7 +28,6 @@ export class App extends Component {
   };
 
   handleChange = evt => {
-    console.log(evt.target.value);
     const { name, value } = evt.target;
     this.setState({ [name]: value });
   };
