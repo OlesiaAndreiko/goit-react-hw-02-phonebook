@@ -6,7 +6,7 @@ export const FilerWrap = styled.div`
   justify-content: flex-end;
   gap: 15px;
   width: 558px;
-  height: 100px;
+  height: 90px;
   padding: 20px;
   border: 2px solid #2196f3;
   box-shadow: 0px 4px 4px rgb(0, 0, 0, 15%);
