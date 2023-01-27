@@ -5,7 +5,7 @@ export const FilerWrap = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   gap: 15px;
-  width: 558px;
+  width: 538px;
   height: 90px;
   padding: 20px;
   border: 2px solid #2196f3;
@@ -19,7 +19,7 @@ export const FieldCaption = styled.label`
 
 export const ContactInput = styled.input`
   display: block;
-  width: 450px;
+  width: 430px;
   height: 20px;
   padding: 12px;
   font-size: 20px;

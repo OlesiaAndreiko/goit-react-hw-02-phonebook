@@ -5,7 +5,7 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: flex-end;
   gap: 15px;
-  width: 558px;
+  width: 538px;
   height: 280px;
   padding: 20px;
   border: 2px solid #2196f3;
@@ -44,7 +44,7 @@ export const FieldCaption = styled.label`
 
 export const ContactInput = styled.input`
   display: block;
-  width: 534px;
+  width: 513px;
   height: 20px;
   padding: 12px;
   font-size: 20px;
