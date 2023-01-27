@@ -31,6 +31,17 @@ export class App extends Component {
   };
 
   addContact = (name, number) => {
+    const { contacts } = this.state;
+    if (
+      contacts.some(
+        contact =>
+          contact.name.toLowerCase().trim() === name.toLowerCase().trim()
+      )
+    ) {
+      alert(`${name} is already in contacts!`);
+      return;
+    }
+
     this.setState(prevState => ({
       contacts: [...prevState.contacts, { id: nanoid(), name, number }],
     }));
@@ -50,7 +61,7 @@ export class App extends Component {
     return (
       <Container>
         <Heading title={'phonebook'}></Heading>
-        <FormContact onSubmit={this.addContact} contacts={contacts} />
+        <FormContact onSubmit={this.addContact} />
         <Heading title={'contacts'}></Heading>
         <Filter filter={filter} onChange={this.handleChange} />
         <ContactList contacts={newContacts} onDelete={this.deleteContact} />
